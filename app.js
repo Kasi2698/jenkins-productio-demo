@@ -1,19 +1,15 @@
-const express = require("express");
+const express = require('express');
 
 const app = express();
 
-app.get("/", (req, res) => {
-    res.send("Jenkins Production CI/CD Demo");
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' });
 });
 
-app.get("/health", (req, res) => {
-    res.status(200).json({
-        status: "UP"
-    });
-});
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log('Server running on port 3000');
+  });
+}
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log(`Application running on port ${PORT}`);
-});
+module.exports = app;
