@@ -98,5 +98,26 @@ pipeline {
                       ok: 'Deploy'
             }
         }
+
+        stage('Deploy to AWS EC2') {
+            steps {
+                sshagent(['ec2-ssh']) {
+
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no \
+                            ubuntu@3.110.50.61 \
+                            "
+                            sudo docker pull kasi26/jenkins-production-demo:${BUILD_NUMBER} &&
+                            sudo docker stop jenkins-demo || true &&
+                            sudo docker rm jenkins-demo || true &&
+                            sudo docker run -d \
+                              --name jenkins-demo \
+                              -p 3000:3000 \
+                              kasi26/jenkins-production-demo:${BUILD_NUMBER}
+                            "
+                    '''
+                }
+            }
+        }
     }
 }
