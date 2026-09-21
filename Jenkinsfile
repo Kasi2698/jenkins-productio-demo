@@ -33,6 +33,7 @@ pipeline {
                               -Dsonar.projectKey=Kasi2698_sonarqube-github-actions-demo \
                               -Dsonar.projectName=jenkins-production-demo \
                               -Dsonar.sources=. \
+                              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
                               -Dsonar.qualitygate.wait=true \
                               -Dsonar.qualitygate.timeout=300
                         """
