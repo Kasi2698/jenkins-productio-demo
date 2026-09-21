@@ -22,25 +22,27 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'SonarQube Scanner'
+    steps {
+        script {
+            def scannerHome = tool 'SonarQube Scanner'
 
-                    withSonarQubeEnv('SonarQube') {
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
-                              -Dsonar.organization=kasi2698 \
-                              -Dsonar.projectKey=Kasi2698_sonarqube-github-actions-demo \
-                              -Dsonar.projectName=jenkins-production-demo \
-                              -Dsonar.sources=. \
-                              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-                              -Dsonar.qualitygate.wait=true \
-                              -Dsonar.qualitygate.timeout=300
-                        """
-                    }
-                }
+            withSonarQubeEnv('SonarQube') {
+                sh """
+                    ${scannerHome}/bin/sonar-scanner \
+                      -Dsonar.organization=kasi2698 \
+                      -Dsonar.projectKey=Kasi2698_sonarqube-github-actions-demo \
+                      -Dsonar.projectName=jenkins-production-demo \
+                      -Dsonar.sources=. \
+                      -Dsonar.tests=tests \
+                      -Dsonar.test.inclusions=tests/**/*.js \
+                      -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                      -Dsonar.qualitygate.wait=true \
+                      -Dsonar.qualitygate.timeout=300
+                """
             }
         }
+    }
+}
 
         stage('Docker Build') {
             steps {
