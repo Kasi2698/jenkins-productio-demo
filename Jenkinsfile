@@ -103,7 +103,7 @@ pipeline {
 
                     sh '''
                         ssh -o StrictHostKeyChecking=no \
-                            ubuntu@3.110.50.61 \
+                            ubuntu@15.206.163.153 \
                             "
                             sudo docker pull kasi26/jenkins-production-demo:${BUILD_NUMBER} &&
                             sudo docker stop jenkins-demo || true &&
