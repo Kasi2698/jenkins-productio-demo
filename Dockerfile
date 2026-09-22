@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install -g npm@latest \
+RUN npm install -g npm@12.0.2 --ignore-scripts \
  && npm ci --omit=dev --ignore-scripts
 
 # ---- Runtime stage: no npm/yarn/corepack, just node + your app ----
