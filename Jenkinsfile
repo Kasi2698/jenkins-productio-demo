@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -103,8 +104,10 @@ pipeline {
 
                     sh '''
                         ssh -o StrictHostKeyChecking=no \
-                            ubuntu@13.200.246.209 \
+                            ubuntu@13.203.208.242 \
                             "
+                            echo 'SSH connection successful'
+
                             sudo docker pull kasi26/jenkins-production-demo:${BUILD_NUMBER} &&
                             sudo docker stop jenkins-demo || true &&
                             sudo docker rm jenkins-demo || true &&
@@ -119,3 +122,4 @@ pipeline {
         }
     }
 }
+```
